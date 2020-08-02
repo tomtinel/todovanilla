@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    
+    <title>To Do List</title>
+</head>
+<body>
+    <h1>To Do List</h1>
+
+    <!-- create new todo by typing into a box - once press enter add it to a list displayed below. Triggers event to create new to do / shouldn't allow empty content-->
+    
+    <form action="" onsubmit="createToDo()">
+        <fieldset>
+            <legend>
+                <label for="toDoText">New To Do:</label>
+            </legend>
+            <div class="inputContainer">
+                <input type="text" id="toDoText">
+                <button id="cta" type="submit">Add</button>
+            </div>
+        </fieldset>
+    </form>
+
+    <!-- List: li are created by JS and added into a container -->
+    <container>
+        <ul id="listToDo"></ul>
+    </container>
+
+
+</body>
+<script src="todo.js"></script>
+</html>
