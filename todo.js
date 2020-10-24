@@ -1,26 +1,34 @@
 const todos = [];
 
-const createToDo = () => {
-    event.preventDefault()
+const key = 'ListOfTodos';
+const input = document.querySelector('#toDoText')
+const newLi = document.createElement('li') // id ?
+const targetUl = document.querySelector('#listToDo')
 
-    const input = document.querySelector('#toDoText')
-    const newLi = document.createElement('li') // id ?
-    const targetUl = document.querySelector('#listToDo')
+    var finalTodos = localStorage.getItem(key);
+    finalTodos = JSON.parse(finalTodos)
+
+    for(i=0; i<finalTodos.length; i++){
+        newLi.innerHTML = finalTodos[i];   
+        targetUl.append(newLi); 
+    }
+
+const createToDo = (key, input, newLi, targetUl) => {
+    event.preventDefault()
 
     if(input.value == ''){
         return console.log('input empty you silly');
     }
-
-    const strTodos = JSON.stringify(todos);
-    const listOfToDos = 'List of Todos';
     
-    localStorage.setItem('listOfToDos', strTodos);
-
     todos.push(input.value);
+    const strTodos = JSON.stringify(todos);
+    localStorage.setItem(key, strTodos);
+     var finalTodos = localStorage.getItem(key);
+    finalTodos = JSON.parse(finalTodos)
 
-    for(i=0; i<todos.length; i++){
-        newLi.innerHTML = todos[i];   
-        targetUl.append(newLi);
+    for(i=0; i<finalTodos.length; i++){
+        newLi.innerHTML = finalTodos[i];   
+        targetUl.append(newLi); 
     }
     
     input.value = '';
