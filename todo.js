@@ -17,29 +17,35 @@ const getData = () => {
 const setData = () => {
     const input = document.querySelector('#toDoText')
     const data = getData()
-    if(input.value != undefined || input.value != ''){
+    
+    if(input.value != undefined && input.value != ''){
         data.push({
             content: input.value,
             status: 'active',
         })
         const valueJSON = JSON.stringify(data)
         localStorage.setItem(KEY, valueJSON)
+        input.value = ''
     }
 }
 
 // creates new li - (data) should be our array
-const displayData = (data) => {
+const displayData = () => {
+    const data = getData()
+    // on delete tout
     const targetUl = document.querySelector('#listToDo')
             targetUl.innerHTML = ''
     if(data != null){
         for(i=0; i<data.length; i++) {
             let newLi = document.createElement('li')
+            let content = document.createElement('div')
             let cross = document.createElement('div')
 
-            newLi.id = i
-            newLi.classList.add(data[i].status)
-            newLi.innerHTML = data[i].content
-            newLi.onclick = (event) => {
+            content.id = i
+            content.classList.add(data[i].status)
+            content.innerHTML = data[i].content
+
+            content.onclick = (event) => {
                 toggle(event)
             }
             
@@ -49,52 +55,46 @@ const displayData = (data) => {
             cross.onclick = (event) => {
                 onDelete(event)
             }
-            
             newLi.append(cross)
+            newLi.append(content)
             targetUl.append(newLi)
         }
-      }
+    }
 }
 
-const toggle = () => {
+const toggle = (event) => {
     const id = event.currentTarget.id
     let data = getData()
-    if(data[id].status == 'active'){
+
+    if(data != undefined && data[id].status == 'active'){
         data[id].status = 'completed'       
     }else{
         data[id].status = 'active'
     }
+
     const valueJSON = JSON.stringify(data)
     localStorage.setItem(KEY, valueJSON)
-    displayData(data)
+
+    displayData()
 }
 
 const onDelete = (event) => {
     const id = event.currentTarget.dataset.idli
     let data = getData()
-        data.splice(id, 1)
-        console.log(data);
+
+    data.splice(id, 1)
+    
     const valueJSON = JSON.stringify(data)
     localStorage.setItem(KEY, valueJSON)
-    displayData(data)
-    }
+
+    displayData()
+}
 
 const onSubmit = () => {
     event.preventDefault()
     setData();
-    var state = getData()
-    displayData(state)
+    
+    displayData()
 }
 
-const init = () => {
-    var state = getData()
-    displayData(state)
-}
-
-init()
-
-// li should have a hover (CSS) with a function to delete (-) (JS id? sur qui on a cliqué)
-
-// Use a filter on an array (status: active or completed) - 
-
-// example: http://todomvc.com/examples/react/#/
+displayData()

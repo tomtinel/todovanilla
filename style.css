@@ -83,6 +83,7 @@ button:hover{
 
 li{
     padding: 1rem;
+    margin: 1rem;
     cursor: pointer;
     position: relative;
     border: 0.1rem solid hotpink;
@@ -106,3 +107,6 @@ li:hover .deleteButton {
     text-decoration: line-through;
 }
 
+ul{
+    list-style: none;
+}
